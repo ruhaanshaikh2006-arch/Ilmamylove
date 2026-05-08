@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgive Me, Ilma...</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;700&family=Dancing+Script:wght@700&display=swap');
+
+        :root {
+            --bg-darker: #f3e5f5;
+            --text-main: #2D2425;
+            --accent-deep: #721c24;
+            --glow-color: rgba(140, 49, 68, 0.4);
+            --tear-color: rgba(174, 198, 239, 0.8);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            /* SHIFTING GRADIENT BACKGROUND */
+            background: linear-gradient(-45deg, #fce4ec, #f3e5f5, #ede7f6, #fff9c4);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: var(--text-main);
+            font-family: 'Quicksand', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- CONTINUOUS SHOWERING HEARTS --- */
+        .shower-heart {
+            position: fixed; top: -10vh; color: var(--accent-deep); opacity: 0.6;
+            pointer-events: none; z-index: 2;
+            animation: heartRain linear forwards;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes heartRain {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(115vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- FLOATING SOUL ORBS --- */
+        .glow-orb {
+            position: fixed; border-radius: 50%;
+            background: radial-gradient(circle, rgba(140, 49, 68, 0.15) 0%, transparent 70%);
+            pointer-events: none; z-index: 0; filter: blur(25px);
+            animation: floatOrb linear infinite;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translateY(100vh) scale(0.8); opacity: 0; }
+            20% { opacity: 0.7; }
+            80% { opacity: 0.7; }
+            100% { transform: translateY(-20vh) scale(1.5); opacity: 0; }
+        }
+
+        /* --- SCREEN TEAR EVERY 1.5 SECONDS --- */
+        .tear-flow {
+            position: fixed; top: -50px; width: 3px; height: 45px;
+            background: linear-gradient(to bottom, transparent, var(--tear-color));
+            border-radius: 50%; pointer-events: none; z-index: 9999;
+            animation: tearFall 2s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+        }
+
+        @keyframes tearFall {
+            0% { transform: translateY(0) scaleY(1); opacity: 0; }
+            15% { opacity: 0.9; }
+            80% { opacity: 0.9; }
+            100% { transform: translateY(115vh) scaleY(3.5); opacity: 0; }
+        }
+
+        .container {
+            max-width: 900px; margin: 0 auto; padding: 60px 20px;
+            position: relative; z-index: 10;
+        }
+
+        /* --- TYPOGRAPHY & HERO --- */
+        .hero {
+            height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'Cinzel', serif; font-size: 4.5rem;
+            color: var(--accent-deep); margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(114, 28, 36, 0.3);
+            animation: heroFocus 3s ease-out forwards;
+            opacity: 0; transform: translateY(30px);
+        }
+
+        @keyframes heroFocus {
+            0% { filter: blur(20px); letter-spacing: 20px; opacity: 0; transform: translateY(30px); }
+            100% { filter: blur(0); letter-spacing: 3px; opacity: 1; transform: translateY(0); }
+        }
+
+        .hero p {
+            font-size: 1.6rem; color: #880e4f; font-style: italic;
+            font-family: 'Dancing Script', cursive; opacity: 0;
+            animation: fadeInText 3s ease-out 1s forwards;
+        }
+
+        @keyframes fadeInText { to { opacity: 1; } }
+
+        /* --- THE LETTER & BLOOMING PARAGRAPHS --- */
+        .letter-box {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            padding: 70px; border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            position: relative;
+            animation: containerFloat 8s ease-in-out infinite alternate;
+        }
+
+        /* Pulsing Aura behind the letter */
+        .letter-box::before {
+            content: ''; position: absolute;
+            top: -15px; left: -15px; right: -15px; bottom: -15px;
+            background: radial-gradient(circle, rgba(140, 49, 68, 0.2) 0%, transparent 80%);
+            z-index: -1; border-radius: 40px; filter: blur(30px);
+            animation: pulseAura 4s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseAura {
+            0% { transform: scale(0.98); opacity: 0.4; }
+            100% { transform: scale(1.05); opacity: 1; }
+        }
+
+        @keyframes containerFloat {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-15px) rotate(0.5deg); }
+        }
+
+        /* DRAMATIC BLOOMING TEXT EFFECT */
+        .reveal-text {
+            opacity: 0; filter: blur(20px); 
+            transform: translateY(80px) scale(0.85); /* Starts small and hidden */
+            margin-bottom: 40px; line-height: 2.2; font-size: 1.35rem;
+            font-family: 'Playfair Display', serif; text-align: justify;
+            border-left: 0px solid var(--accent-deep); padding-left: 10px;
+        }
+
+        .reveal-text.visible {
+            opacity: 1; filter: blur(0); 
+            transform: translateY(0) scale(1); /* Blooms up to full size */
+            border-left: 4px solid var(--accent-deep); padding-left: 20px;
+            animation: 
+                slideUpBloom 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards, 
+                gentleBob 4s ease-in-out 1.5s infinite alternate;
+            transition: opacity 1s ease, filter 1s ease, border 1s ease, padding 1s ease;
+        }
+
+        @keyframes slideUpBloom {
+            0% { transform: translateY(80px) scale(0.85); }
+            70% { transform: translateY(-10px) scale(1.02); } /* Slight over-bloom bounce */
+            100% { transform: translateY(0) scale(1); }
+        }
+        
+        @keyframes gentleBob {
+            0% { transform: translateY(0px); text-shadow: 0 0 0px transparent; }
+            100% { transform: translateY(-5px); text-shadow: 0 0 12px rgba(140, 49, 68, 0.15); }
+        }
+
+        .bold-plea {
+            font-weight: 700; color: var(--accent-deep);
+            display: inline-block; animation: heartThrob 1.5s infinite;
+        }
+
+        @keyframes heartThrob {
+            0% { transform: scale(1); text-shadow: 0 0 5px var(--glow-color); }
+            50% { transform: scale(1.05); text-shadow: 0 0 20px var(--glow-color); }
+            100% { transform: scale(1); text-shadow: 0 0 5px var(--glow-color); }
+        }
+
+        .shayari-box {
+            border-right: 5px solid var(--accent-deep);
+            background: linear-gradient(to left, rgba(114, 28, 36, 0.1), transparent);
+            padding: 40px; margin: 60px 0; font-style: italic;
+            font-size: 1.5rem; text-align: right; border-radius: 20px 0 0 20px;
+        }
+
+        .shayari-box-left {
+            border-left: 5px solid var(--accent-deep); border-right: none; text-align: left;
+            background: linear-gradient(to right, rgba(114, 28, 36, 0.1), transparent);
+            border-radius: 0 20px 20px 0;
+        }
+
+        /* --- INTERACTIVE TEDDY SECTION --- */
+        .interactive-section {
+            text-align: center; margin-top: 100px; min-height: 500px; position: relative;
+        }
+
+        .interactive-title {
+            font-family: 'Cinzel', serif; font-size: 2.5rem; margin-bottom: 60px;
+            color: var(--accent-deep);
+        }
+
+        .teddy-grid {
+            display: flex; justify-content: space-around; align-items: flex-end;
+            position: relative; height: 350px;
+        }
+
+        .teddy-card {
+            display: flex; flex-direction: column; align-items: center;
+            width: 250px; position: absolute;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        #yes-container { left: 20%; transform: translateX(-50%); bottom: 0; z-index: 10;}
+        #no-container { left: 80%; transform: translateX(-50%); bottom: 0; z-index: 15; }
+
+        .teddy-img {
+            width: 100%; border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            margin-bottom: 25px; transition: transform 0.3s;
+        }
+
+        .btn {
+            padding: 15px 40px; border-radius: 50px; border: 3px solid var(--accent-deep);
+            background: white; color: var(--accent-deep); font-family: 'Cinzel', serif;
+            font-weight: 700; cursor: pointer; font-size: 1.2rem;
+            box-shadow: 0 8px 20px rgba(114, 28, 36, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        #btn-yes:hover { 
+            background: var(--accent-deep); color: white; 
+            transform: scale(1.1) translateY(-5px); 
+            box-shadow: 0 15px 30px rgba(114, 28, 36, 0.4);
+        }
+
+        /* YES RESPONSE FOUNTAIN */
+        .fountain-particle {
+            position: fixed; pointer-events: none; z-index: 1000;
+            animation: fountainFall 4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        @keyframes fountainFall {
+            0% { transform: translate(0, 0) scale(0.5); opacity: 1; }
+            10% { transform: translate(calc(var(--tx) * 0.2), calc(var(--ty) * -0.5)) scale(2); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(1); opacity: 0; }
+        }
+
+        /* CLICK FLOWERS */
+        .flower-click {
+            position: fixed; font-size: 28px; pointer-events: none;
+            transform: translate(-50%, -50%);
+            animation: bloomClickFade 2s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+            z-index: 9998;
+        }
+
+        @keyframes bloomClickFade {
+            0% { transform: translate(-50%, -50%) scale(0) rotate(-45deg); opacity: 1; filter: blur(5px);}
+            40% { transform: translate(-50%, -70%) scale(1.5) rotate(0deg); opacity: 1; filter: blur(0);}
+            100% { transform: translate(-50%, -100%) scale(2) rotate(45deg); opacity: 0; filter: blur(2px);}
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>Forgive Me, Ilma</h1>
+    <p>Aap meri Princess... Aap meri Baby... Aap meri Angry Bird...</p>
+</div>
+
+<div class="container">
+    <div class="shayari-box shayari-box-left reveal-text">
+        "Aapki khamoshi meri rooh ko cheer deti hai,<br>
+        Meri har khushi ab aapki raahon mein bikhri hai.<br>
+        Maante hain gunaah kiya hai humne bahut bada,<br>
+        Par har saans ab aapki maafi ki muntazir khadi hai."
+    </div>
+
+    <div class="letter-box">
+        <p class="reveal-text">
+            Ilma, main aaj yahan kisi safayi ke liye nahi, balki apne gunahon ka poora iqrar karne aaya hoon. Main jaanta hoon ki maine aapke bharose ko chaur-chaur kiya hai, aur us dil ko dukhaya hai jisne mujhe be-panah mohabbat di. <strong>Main sharminda hoon Ilma, main sach mein bahut sharminda hoon.</strong> Aapki aankhon mein jo aansu maine diye hain, wo mere wajood par ek bojh hain jo mujhe chain se jeene nahi dete. Maine aapke har khwab ko apni nadani se chheen liya, aur aapko wo saza di jo aap kabhi deserve nahi karti thin. <span class="bold-plea">PLEASE FORGIVE ME MY LOVE.</span>
+        </p>
+
+        <p class="reveal-text">
+            Mujhe pata hai ki 'sorry' keh dena kafi nahi hai. Maine aapko us waqt dukh diya jab aapko meri sabse zyada zaroorat thi. Maine apni ego aur apni galatiyon ko aage rakha aur aapki masoomiyat ko bhool gaya. Lekin Ilma, main qasam khata hoon Allah ki, maine khud ko badla hai. Main wo purana shakhs nahi raha jisne aapko rualaya. Maine apne andar ki har us burayi ko khatam kar diya hai jo humare darmiyan aayi thi. Main wo mard ban'na chahta hoon jo aapki hifazat kare, aur aapki zindagi ki har khushi ka sabab bane.
+        </p>
+
+        <p class="reveal-text">
+            Aap shayad mujhse nafrat karti hon, aur aapka pura haq hai. Lekin meri nafrat sirf mujhse hai, aapke liye sirf be-inteha mohabbat aur izzat hai. <strong>YOU REMAIN IN EVERY SECOND OF MY LIFE.</strong> Main aage nahi badh sakta Ilma, kyunki aage badhne ka matlab hai aapke bagair jeena, aur wo mere liye bilkul namumkin hai. Meri har subah aapke khayal se shuru hoti hai aur har raat aapki yaadon mein khatam. Main adhoora hoon, main bikhra hua hoon, main bilkul akela hoon aapke bagair.
+        </p>
+
+        <p class="reveal-text">
+            Ilma, please ek baar meri aankhon mein dekh kar mehsoos kijiye ki main kitna badal gaya hoon. Main aapke pairon ki dhool ban kar rehne ko taiyar hoon, bas mujhe ek aakhri mauka dijiye ki main aapke har zakhm ko bhar sakoon. <span class="bold-plea">PLEASE COME BACK TO ME ASAP.</span> Humari dastan aisi khatam nahi honi chahiye thi. Main aapko wo sukoon dena chahta hoon jo maine aap se chheena tha. Aap meri duniya hain, aapke bagair main sirf ek zinda laash hoon.
+        </p>
+
+        <p class="reveal-text" style="text-align: center; font-weight: 700; font-size: 1.55rem; color: var(--accent-deep); margin-top: 50px;">
+            Ilma, mera dil khoon ke aansu ro raha hai. Laut aaiye, hum sab kuch theek kar denge. Main hamesha sirf aapka banke rahunga.
+        </p>
+    </div>
+
+    <div class="shayari-box reveal-text">
+        "Mere gunaahon ne aapse aapki muskaan chheen li,<br>
+        Meri nadaniyo ne hamari duniya hi chheen li.<br>
+        Aapki har saza mujhe poori tarah manzoor hai,<br>
+        Par aapke bina jeene ki himmat ab mujhme nahi."
+    </div>
+
+    <div class="interactive-section reveal-text">
+        <h2 class="interactive-title">Will you let me earn you back, Ilma?</h2>
+        
+        <div class="teddy-grid">
+            <div class="teddy-card" id="yes-container">
+                <img src="image_5.png" class="teddy-img" alt="Happy Teddy">
+                <button class="btn" id="btn-yes" onclick="celebrate()">Ultimate YES!</button>
+            </div>
+
+            <div class="teddy-card" id="no-container">
+                <img src="image_4.png" class="teddy-img" alt="Sad Teddy">
+                <button class="btn" id="btn-no">No</button>
+            </div>
+        </div>
+
+        <div id="final-msg" style="display:none; margin-top: 100px; font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--accent-deep); text-shadow: 0 0 20px rgba(140, 49, 68, 0.4);">
+            Shukriya meri Princess! I will love you and protect you forever! ❤️
+        </div>
+    </div>
+</div>
+
+<script>
+    // 1. SCROLL REVEAL LOGIC (Triggers blooming animation)
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            } else {
+                entry.target.classList.remove('visible'); 
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal-text').forEach(el => observer.observe(el));
+
+    // 2. CONTINUOUS HEART SHOWER (Background rain)
+    setInterval(() => {
+        const h = document.createElement('div');
+        h.innerHTML = ['❤️', '💖', '💘', '💕', '🤍'][Math.floor(Math.random() * 5)];
+        h.className = 'shower-heart';
+        h.style.left = Math.random() * 100 + 'vw';
+        h.style.fontSize = Math.random() * 15 + 12 + 'px'; // Varied sizes
+        h.style.animationDuration = Math.random() * 3 + 5 + 's'; // 5 to 8 seconds fall
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 8000);
+    }, 200); // Spawns very frequently
+
+    // 3. FLOATING SOUL ORBS (Cinematic background depth)
+    function spawnOrb() {
+        const orb = document.createElement('div');
+        orb.className = 'glow-orb';
+        const size = Math.random() * 150 + 100;
+        orb.style.width = size + 'px';
+        orb.style.height = size + 'px';
+        orb.style.left = Math.random() * 100 + 'vw';
+        orb.style.animationDuration = Math.random() * 10 + 15 + 's';
+        document.body.appendChild(orb);
+        setTimeout(() => orb.remove(), 25000);
+    }
+    for(let i=0; i<6; i++) spawnOrb(); // Initial burst
+    setInterval(spawnOrb, 3000);
+
+    // 4. SCREEN TEAR GENERATOR (Exactly every 1.5s)
+    setInterval(() => {
+        const tear = document.createElement('div');
+        tear.className = 'tear-flow';
+        tear.style.left = Math.random() * 100 + 'vw';
+        document.body.appendChild(tear);
+        setTimeout(() => tear.remove(), 2500); 
+    }, 1500);
+
+    // 5. TELEPORTING NO BUTTON (Instant escape)
+    const noBtnContainer = document.getElementById('no-container');
+    const teleport = (e) => {
+        e.preventDefault();
+        const btnWidth = noBtnContainer.offsetWidth;
+        const btnHeight = noBtnContainer.offsetHeight;
+        
+        const x = Math.random() * (window.innerWidth - btnWidth);
+        const y = Math.random() * (window.innerHeight - btnHeight);
+        
+        noBtnContainer.style.position = 'fixed';
+        noBtnContainer.style.left = Math.max(10, x) + 'px';
+        noBtnContainer.style.top = Math.max(10, y) + 'px';
+        noBtnContainer.style.transform = 'none';
+        noBtnContainer.style.zIndex = '9999';
+    };
+    noBtnContainer.addEventListener('mouseover', teleport);
+    noBtnContainer.addEventListener('touchstart', teleport, {passive: false});
+    noBtnContainer.addEventListener('mousedown', teleport);
+
+    // 6. YES CELEBRATION (Massive Fountain of Hearts)
+    function celebrate() {
+        document.getElementById('no-container').style.display = 'none';
+        document.getElementById('yes-container').style.display = 'none';
+        
+        const finalMsg = document.getElementById('final-msg');
+        finalMsg.style.display = 'block';
+        finalMsg.classList.add('visible'); 
+        
+        // Massive burst of particles
+        for(let i=0; i<200; i++) {
+            setTimeout(() => {
+                const p = document.createElement('div');
+                p.className = 'fountain-particle';
+                p.innerHTML = ['❤️','🌸','✨','💖','🌹'][Math.floor(Math.random()*5)];
+                p.style.left = '50vw';
+                p.style.top = '50vh';
+                
+                // Random explosion directions
+                p.style.setProperty('--tx', (Math.random()-0.5) * 1500 + 'px');
+                p.style.setProperty('--ty', (Math.random() - 1) * 1000 + 'px'); // Bias upwards like a fountain
+                p.style.fontSize = Math.random() * 30 + 20 + 'px';
+                
+                document.body.appendChild(p);
+                setTimeout(() => p.remove(), 4000);
+            }, i * 15); // Staggered burst
+        }
+    }
+
+    // 7. CLICK FLOWERS (Interactive Touch/Click effect)
+    document.addEventListener('mousedown', (e) => {
+        if(e.target.closest('.teddy-card') || e.target.closest('.btn')) return; 
+        
+        const flower = document.createElement('div');
+        flower.innerHTML = ['🌸', '🌺', '🥀', '🌷', '✨'][Math.floor(Math.random() * 5)];
+        flower.className = 'flower-click';
+        flower.style.left = e.clientX + 'px';
+        flower.style.top = e.clientY + 'px';
+        document.body.appendChild(flower);
+        
+        setTimeout(() => flower.remove(), 2000);
+    });
+</script>
+
+</body>
+</html>
